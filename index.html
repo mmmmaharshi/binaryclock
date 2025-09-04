@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO: Core Meta Tags -->
+    <title>Retro Binary Clock - A Fun, Geeky Way to Tell Time</title>
+    <meta name="description" content="A live, interactive binary clock with a fun retro 80s aesthetic. Learn to read time in binary with our easy-to-use 'How to Read' guide. Perfect for geeks, programmers, and lovers of vintage tech.">
+    <meta name="keywords" content="binary clock, retro clock, geeky clock, online clock, learn binary, time, digital clock, 80s style, vintage tech, programmer tool">
+    <link rel="canonical" href="https://example.com/retro-binary-clock" /> <!-- Replace with your actual URL when deployed -->
+
+    <!-- SEO: Open Graph Tags (for Social Media Sharing, e.g., Facebook, LinkedIn) -->
+    <meta property="og:title" content="Retro Binary Clock - A Fun, Geeky Way to Tell Time" />
+    <meta property="og:description" content="Learn to read time like a computer with this interactive binary clock, featuring a cool retro 80s design and a simple 'How-to' guide." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://example.com/retro-binary-clock" /> <!-- Replace with your actual URL -->
+    <meta property="og:image" content="https://placehold.co/1200x630/212121/FF9800?text=Retro%0ABinary%0AClock" />
+    <meta property="og:image:alt" content="A retro-styled binary clock with glowing orange LEDs on a dark screen." />
+
+    <!-- SEO: Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Retro Binary Clock - A Fun, Geeky Way to Tell Time">
+    <meta name="twitter:description" content="Learn to read time like a computer with this interactive binary clock, featuring a cool retro 80s design and a simple 'How-to' guide.">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/212121/FF9800?text=Retro%0ABinary%0AClock">
+    
+    <!-- SEO: Structured Data (JSON-LD for Rich Snippets) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Retro Binary Clock",
+      "applicationCategory": "BrowserApplication",
+      "operatingSystem": "Any",
+      "description": "An interactive, browser-based binary clock designed with a retro 80s aesthetic. It helps users learn how to read time in binary format through a live, updating display and an instructional guide.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Web App Developer"
+      }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* --- UI LOCKED: These retro styles will remain consistent --- */
+        body {
+            font-family: 'VT323', monospace;
+            background-color: #3e3a3a;
+            background-image:
+                linear-gradient(rgba(45, 42, 42, 0.8) .05em, transparent .05em),
+                linear-gradient(90deg, rgba(45, 42, 42, 0.8) .05em, transparent .05em);
+            background-size: 1.5em 1.5em;
+            overflow: hidden;
+        }
+
+        .clock-case {
+            background: #6D4C41;
+            background-image: linear-gradient(0deg, #5D4037 50%, #795548 50%);
+            background-size: 10px 10px;
+            padding: 25px;
+            border-radius: 20px;
+            border: 5px solid #4E342E;
+            box-shadow: 
+                inset 0 0 15px rgba(0,0,0,0.6),
+                0 10px 20px rgba(0,0,0,0.5);
+        }
+        
+        .screen {
+            background-color: #212121;
+            border: 3px inset #424242;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.75);
+        }
+
+        .led {
+            border-radius: 4px;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .led-on {
+            background-color: #F44336 !important;
+            border-color: #7f1d1d;
+            box-shadow: 0 0 8px #F44336, 0 0 12px #EF5350, 0 0 16px #E53935;
+        }
+
+        .led-off {
+            background-color: #3e2723;
+            border-color: #212121;
+        }
+        
+        .retro-text {
+            color: #FF9800;
+            text-shadow: 0 0 3px #FB8C00, 0 0 5px #F57C00;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .modal-example-led {
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    
+    <div class="flex flex-col items-center">
+        <div class="clock-case">
+            <div class="screen">
+                <h1 class="text-4xl md:text-5xl font-bold text-center mb-4 tracking-widest retro-text">BINARY CLOCK</h1>
+                
+                <div class="flex justify-center space-x-4 md:space-x-6" role="timer" aria-live="off" aria-label="Binary clock display">
+                    <!-- Column for side numbers -->
+                    <div class="flex flex-col text-lg md:text-xl font-semibold retro-text opacity-80">
+                        <div class="flex items-center justify-center h-8 md:h-10 mt-2 md:mt-3">32</div>
+                        <div class="flex items-center justify-center h-8 md:h-10 mt-2 md:mt-3">16</div>
+                        <div class="flex items-center justify-center h-8 md:h-10 mt-2 md:mt-3">8</div>
+                        <div class="flex items-center justify-center h-8 md:h-10 mt-2 md:mt-3">4</div>
+                        <div class="flex items-center justify-center h-8 md:h-10 mt-2 md:mt-3">2</div>
+                        <div class="flex items-center justify-center h-8 md:h-10 mt-2 md:mt-3">1</div>
+                        <div class="h-8 mt-2 md:mt-3"></div> 
+                    </div>
+                    <!-- Hours Column -->
+                    <div class="flex flex-col" role="group" aria-label="Hours">
+                        <div class="w-8 h-8 md:w-10 md:h-10 mt-2 md:mt-3"></div>
+                        <div class="w-8 h-8 md:w-10 md:h-10 mt-2 md:mt-3"></div>
+                        <div id="h-8" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="h-4" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="h-2" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="h-1" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div class="text-2xl md:text-3xl font-bold retro-text h-8 text-center mt-2 md:mt-3">H</div>
+                    </div>
+                    <!-- Minutes Column -->
+                    <div class="flex flex-col" role="group" aria-label="Minutes">
+                        <div id="m-32" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="m-16" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="m-8" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="m-4" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="m-2" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="m-1" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div class="text-2xl md:text-3xl font-bold retro-text h-8 text-center mt-2 md:mt-3">M</div>
+                    </div>
+                    <!-- Seconds Column -->
+                    <div class="flex flex-col" role="group" aria-label="Seconds">
+                        <div id="s-32" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="s-16" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="s-8" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="s-4" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="s-2" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div id="s-1" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
+                        <div class="text-2xl md:text-3xl font-bold retro-text h-8 text-center mt-2 md:mt-3">S</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center items-end mt-6">
+                    <div id="digital-time" class="text-center text-5xl md:text-6xl font-bold retro-text tracking-wider" role="status" aria-live="polite">--:--:--</div>
+                    <div id="ampm-indicator" class="ml-3 text-3xl md:text-4xl font-bold retro-text">--</div>
+                </div>
+                <div id="date-string" class="mt-2 text-center text-xl md:text-2xl retro-text opacity-90">Loading...</div>
+            </div>
+        </div>
+
+        <button id="open-modal-btn" class="mt-6 px-6 py-2 bg-[#4E342E] text-amber-500 text-2xl border-2 border-amber-700 rounded-lg shadow-md hover:bg-[#5D4037] active:translate-y-px">
+            How to Read
+        </button>
+    </div>
+
+    <div id="modal" class="modal-overlay hidden">
+        <div class="clock-case max-w-lg w-full m-4">
+            <div class="screen relative">
+                <button id="close-modal-btn" class="absolute top-2 right-4 text-4xl retro-text hover:text-white">&times;</button>
+                <h2 class="text-3xl retro-text text-center mb-4">How to Read This Clock</h2>
+                <div class="text-xl retro-text opacity-90 space-y-4">
+                    <p>
+                        Each column (H, M, S) represents a number. To find the number, you simply <span class="text-white">add the values of the lit-up LEDs</span> in that column. The values are shown on the far left.
+                    </p>
+                    <p class="font-bold text-white text-2xl">For Example, to get the number 25:</p>
+                    <div class="pl-4">
+                        <p><span class="modal-example-led led-off"></span> 32</p>
+                        <p><span class="modal-example-led led-on"></span> 16</p>
+                        <p><span class="modal-example-led led-on"></span> 8</p>
+                        <p><span class="modal-example-led led-off"></span> 4</p>
+                        <p><span class="modal-example-led led-off"></span> 2</p>
+                        <p><span class="modal-example-led led-on"></span> 1</p>
+                        <p class="mt-2 text-white">You would add: <span class="text-2xl">16 + 8 + 1 = 25</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // No changes to JavaScript
+        const digitalTimeEl = document.getElementById('digital-time');
+        const dateStringEl = document.getElementById('date-string');
+        const ampmIndicatorEl = document.getElementById('ampm-indicator');
+        
+        const modal = document.getElementById('modal');
+        const openModalBtn = document.getElementById('open-modal-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+
+        openModalBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+        closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+
+        const updateColumn = (prefix, number, maxLeds) => {
+            for (let i = 0; i < maxLeds; i++) {
+                const bitValue = Math.pow(2, i);
+                const led = document.getElementById(`${prefix}-${bitValue}`);
+                if (!led) continue;
+                if ((number & bitValue) === bitValue) {
+                    led.classList.remove('led-off');
+                    led.classList.add('led-on');
+                } else {
+                    led.classList.remove('led-on');
+                    led.classList.add('led-off');
+                }
+            }
+        };
+
+        const updateClock = () => {
+            const now = new Date();
+            let hours = now.getHours();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            updateColumn('h', hours, 4);
+            updateColumn('m', minutes, 6);
+            updateColumn('s', seconds, 6);
+            
+            const padZero = (num) => String(num).padStart(2, '0');
+
+            digitalTimeEl.textContent = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+            ampmIndicatorEl.textContent = ampm;
+            dateStringEl.textContent = now.toLocaleDateString(undefined, {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+        };
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
