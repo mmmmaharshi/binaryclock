@@ -55,14 +55,13 @@
                 linear-gradient(rgba(45, 42, 42, 0.8) .05em, transparent .05em),
                 linear-gradient(90deg, rgba(45, 42, 42, 0.8) .05em, transparent .05em);
             background-size: 1.5em 1.5em;
-            overflow: hidden;
         }
 
         .clock-case {
             background: #6D4C41;
             background-image: linear-gradient(0deg, #5D4037 50%, #795548 50%);
             background-size: 10px 10px;
-            padding: 25px;
+            padding: 20px; /* Shrunk */
             border-radius: 20px;
             border: 5px solid #4E342E;
             box-shadow: 
@@ -74,7 +73,7 @@
             background-color: #212121;
             border: 3px inset #424242;
             border-radius: 10px;
-            padding: 1.5rem;
+            padding: 1rem; /* Shrunk */
             box-shadow: inset 0 0 10px rgba(0,0,0,0.75);
         }
 
@@ -123,65 +122,65 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen">
+<body class="min-h-screen py-8">
     
     <div class="flex flex-col items-center">
         <div class="clock-case">
             <div class="screen">
-                <h1 class="text-4xl md:text-5xl font-bold text-center mb-4 tracking-widest retro-text">BINARY CLOCK</h1>
+                <h1 class="text-3xl md:text-4xl font-bold text-center mb-3 tracking-widest retro-text">BINARY CLOCK</h1>
                 
-                <div class="flex justify-center space-x-4 md:space-x-6" role="timer" aria-live="off" aria-label="Binary clock display">
+                <div class="flex justify-center space-x-3 md:space-x-4" role="timer" aria-live="off" aria-label="Binary clock display">
                     <!-- Column for side numbers -->
-                    <div class="flex flex-col text-lg md:text-xl font-semibold retro-text opacity-80">
-                        <div class="flex items-center justify-center h-8 md:h-10 mt-2 md:mt-3">32</div>
-                        <div class="flex items-center justify-center h-8 md:h-10 mt-2 md:mt-3">16</div>
-                        <div class="flex items-center justify-center h-8 md:h-10 mt-2 md:mt-3">8</div>
-                        <div class="flex items-center justify-center h-8 md:h-10 mt-2 md:mt-3">4</div>
-                        <div class="flex items-center justify-center h-8 md:h-10 mt-2 md:mt-3">2</div>
-                        <div class="flex items-center justify-center h-8 md:h-10 mt-2 md:mt-3">1</div>
-                        <div class="h-8 mt-2 md:mt-3"></div> 
+                    <div class="flex flex-col text-base md:text-lg font-semibold retro-text opacity-80">
+                        <div class="flex items-center justify-center h-6 md:h-8 mt-1 md:mt-2">32</div>
+                        <div class="flex items-center justify-center h-6 md:h-8 mt-1 md:mt-2">16</div>
+                        <div class="flex items-center justify-center h-6 md:h-8 mt-1 md:mt-2">8</div>
+                        <div class="flex items-center justify-center h-6 md:h-8 mt-1 md:mt-2">4</div>
+                        <div class="flex items-center justify-center h-6 md:h-8 mt-1 md:mt-2">2</div>
+                        <div class="flex items-center justify-center h-6 md:h-8 mt-1 md:mt-2">1</div>
+                        <div class="h-8 mt-1 md:mt-2"></div> 
                     </div>
                     <!-- Hours Column -->
                     <div class="flex flex-col" role="group" aria-label="Hours">
-                        <div class="w-8 h-8 md:w-10 md:h-10 mt-2 md:mt-3"></div>
-                        <div class="w-8 h-8 md:w-10 md:h-10 mt-2 md:mt-3"></div>
-                        <div id="h-8" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="h-4" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="h-2" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="h-1" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div class="text-2xl md:text-3xl font-bold retro-text h-8 text-center mt-2 md:mt-3">H</div>
+                        <div class="w-6 h-6 md:w-8 md:h-8 mt-1 md:mt-2"></div>
+                        <div class="w-6 h-6 md:w-8 md:h-8 mt-1 md:mt-2"></div>
+                        <div id="h-8" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="h-4" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="h-2" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="h-1" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div class="text-xl md:text-2xl font-bold retro-text h-8 text-center mt-1 md:mt-2">H</div>
                     </div>
                     <!-- Minutes Column -->
                     <div class="flex flex-col" role="group" aria-label="Minutes">
-                        <div id="m-32" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="m-16" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="m-8" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="m-4" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="m-2" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="m-1" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div class="text-2xl md:text-3xl font-bold retro-text h-8 text-center mt-2 md:mt-3">M</div>
+                        <div id="m-32" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="m-16" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="m-8" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="m-4" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="m-2" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="m-1" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div class="text-xl md:text-2xl font-bold retro-text h-8 text-center mt-1 md:mt-2">M</div>
                     </div>
                     <!-- Seconds Column -->
                     <div class="flex flex-col" role="group" aria-label="Seconds">
-                        <div id="s-32" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="s-16" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="s-8" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="s-4" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="s-2" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div id="s-1" class="led led-off w-8 h-8 md:w-10 md:h-10 border-2 mt-2 md:mt-3"></div>
-                        <div class="text-2xl md:text-3xl font-bold retro-text h-8 text-center mt-2 md:mt-3">S</div>
+                        <div id="s-32" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="s-16" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="s-8" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="s-4" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="s-2" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div id="s-1" class="led led-off w-6 h-6 md:w-8 md:h-8 border-2 mt-1 md:mt-2"></div>
+                        <div class="text-xl md:text-2xl font-bold retro-text h-8 text-center mt-1 md:mt-2">S</div>
                     </div>
                 </div>
 
-                <div class="flex justify-center items-end mt-6">
-                    <div id="digital-time" class="text-center text-5xl md:text-6xl font-bold retro-text tracking-wider" role="status" aria-live="polite">--:--:--</div>
-                    <div id="ampm-indicator" class="ml-3 text-3xl md:text-4xl font-bold retro-text">--</div>
+                <div class="flex justify-center items-end mt-4">
+                    <div id="digital-time" class="text-center text-4xl md:text-5xl font-bold retro-text tracking-wider" role="status" aria-live="polite">--:--:--</div>
+                    <div id="ampm-indicator" class="ml-2 text-2xl md:text-3xl font-bold retro-text">--</div>
                 </div>
-                <div id="date-string" class="mt-2 text-center text-xl md:text-2xl retro-text opacity-90">Loading...</div>
+                <div id="date-string" class="mt-1 text-center text-lg md:text-xl retro-text opacity-90">Loading...</div>
             </div>
         </div>
 
-        <button id="open-modal-btn" class="mt-6 px-6 py-2 bg-[#4E342E] text-amber-500 text-2xl border-2 border-amber-700 rounded-lg shadow-md hover:bg-[#5D4037] active:translate-y-px">
+        <button id="open-modal-btn" class="mt-4 px-5 py-1 bg-[#4E342E] text-amber-500 text-xl border-2 border-amber-700 rounded-lg shadow-md hover:bg-[#5D4037] active:translate-y-px">
             How to Read
         </button>
     </div>
